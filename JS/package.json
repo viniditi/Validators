@@ -1,0 +1,33 @@
+{
+  "name": "validator",
+  "version": "0.0.0",
+  "description": "project to validate identity cards issued by the Brazilian government.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "type": "module",
+  "exports": {
+    "import": "./Validator.mjs",
+    "require": "./Validator.cjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viniditi/Validators.git"
+  },
+  "keywords": [
+    "CNPJ",
+    "alfanumérico",
+    "CPF",
+    "numérico",
+    "validador",
+    "validator"
+  ],
+  "author": "Vinid'ti",
+  "license": "MIT License",
+  "bugs": {
+    "url": "https://github.com/viniditi/Validators/issues"
+  },
+  "homepage": "https://github.com/viniditi/Validators#readme"
+}

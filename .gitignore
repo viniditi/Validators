@@ -1,3 +1,6 @@
+.gitignore
+JS/index.js
+
 # Logs
 logs
 *.log
