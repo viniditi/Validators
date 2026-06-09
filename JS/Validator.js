@@ -1,4 +1,4 @@
-class Validator {
+export default class Validator {
   CNPJAlfanumerico(CNPJ) {
     if (!CNPJ) {
       throw new TypeError("CNPJ não foi informado ou está vazio.");
@@ -45,6 +45,8 @@ class Validator {
       return acc + count;
     }, 0);
 
+    console.log(tota);
+
     let resultado = total % 11;
 
     if (resultado === 0 || resultado === 1) {
@@ -66,5 +68,3 @@ class Validator {
     return str.split("").every((digito) => digito === str[0]);
   }
 }
-
-module.exports = Validator;
