@@ -79,13 +79,13 @@ class Validator():
             str: Returns the CNPJ with no mask.
         """
         cnpj_without_mask: list[str] = ['-', '/', '.']
-        cnpj_limpo: str = masked_cnpj
+        cleaned_cnpj: str = masked_cnpj
 
         for symbol in cnpj_without_mask:
             if symbol in masked_cnpj:
-                cnpj_limpo = cnpj_limpo.replace(symbol, '')
+                cleaned_cnpj = cleaned_cnpj.replace(symbol, '')
 
-        return cnpj_limpo
+        return cleaned_cnpj
 
     
     def equal_digits(self, cnpj: str) -> bool:
