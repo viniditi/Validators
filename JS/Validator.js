@@ -1,70 +1,67 @@
 export default class Validator {
-  CNPJAlfanumerico(CNPJ) {
+  ValidateCNPJ(CNPJ) {
     if (!CNPJ) {
-      throw new TypeError("CNPJ não foi informado ou está vazio.");
+      throw new TypeError("CNPJ is empty or Null.");
     }
 
-    if (this.todosDigitosIguais(CNPJ)) {
-      throw new Error("CNPJ com todos os caracteres são iguais.");
+    if (this.EqualDigits(CNPJ)) {
+      throw new Error("CNPJ has all equals characters.");
     }
 
-    const CNPJSemMascara = this.RemoveMaskCNPJ(CNPJ);
+    const CNPJWithoutMask = this.RemoveMaskCNPJ(CNPJ);
 
-    if (CNPJSemMascara.length !== 14) {
-      throw new Error("CNPJ com o valor menor ou maior que 14 digitos.");
+    if (CNPJWithoutMask.length !== 14) {
+      throw new Error("CNPJ has more or less than 14 characters.");
     }
 
-    const CnpjParcializado = CNPJSemMascara.slice(0, -2);
-    const digitosCalculados = [];
+    const slicedCNPJ = CNPJWithoutMask.slice(0, -2);
 
     for (let i = 0; i < 2; i++) {
-      CnpjParcializado.push(String(this.TotalCNPJHelper(CnpjParcializado)));
+      slicedCNPJ.push(String(this.TotalCNPJ(slicedCNPJ)));
     }
 
-    const resultado = CnpjParcializado.join("");
+    const result = slicedCNPJ.join("");
 
-    if (resultado === CNPJSemMascara.join("")) {
+    if (result === CNPJWithoutMask.join("")) {
       return true;
     }
 
     return false;
   }
 
-  TotalCNPJHelper(CNPJSliced) {
-    let peso;
+  TotalCNPJ(CNPJSliced) {
+    let weight;
 
     if (CNPJSliced.length === 12) {
-      peso = "543298765432";
+      weight = "543298765432";
     } else {
-      peso = "6543298765432";
+      weight = "6543298765432";
     }
 
     const total = CNPJSliced.reduce((acc, curr, index) => {
       let count = Number(curr.charCodeAt(0)) - 48;
-      count = count * peso[index];
+      count = count * weight[index];
       return acc + count;
     }, 0);
 
-    console.log(tota);
+    let result = total % 11;
 
-    let resultado = total % 11;
-
-    if (resultado === 0 || resultado === 1) {
-      resultado = 0;
+    if (result === 0 || result === 1) {
+      result = 0;
     } else {
-      resultado = 11 - resultado;
+      result = 11 - result;
     }
 
-    return resultado;
+    return result;
   }
 
-  RemoveMaskCNPJ(CNPJMascarado) {
-    return CNPJMascarado.split("").filter(
-      (letter) => ![".", "/", "-"].includes(letter),
-    );
+  RemoveMaskCNPJ(maskedCNPJ) {
+    return maskedCNPJ
+      .split("")
+      .filter((letter) => ![".", "/", "-"].includes(letter));
   }
 
-  todosDigitosIguais(str) {
-    return str.split("").every((digito) => digito === str[0]);
+  EqualDigits(cnpj) {
+    return cnpj.split("").every((digit) => digit === cnpj[0]);
   }
 }
